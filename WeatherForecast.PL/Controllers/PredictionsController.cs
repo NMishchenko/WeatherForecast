@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
+using WeatherForecast.BLL.Models;
+using WeatherForecast.BLL.Services.Interfaces;
+using WeatherForecast.PL.Models;
 
 namespace WeatherForecast.PL.Controllers
 {
@@ -7,42 +9,79 @@ namespace WeatherForecast.PL.Controllers
     [Route("api/predictions")]
     public class PredictionsController: ControllerBase
     {
-        private readonly IOpenMeteoArchiveHttpService _openMeteoArchiveHttpService;
+        private readonly IOpenMeteoArchiveService _openMeteoArchiveService;
         private readonly IForecastService _forecastService;
 
         public PredictionsController(
-            IOpenMeteoArchiveHttpService openMeteoArchiveHttpService, 
+            IOpenMeteoArchiveService openMeteoArchiveService, 
             IForecastService forecastService)
         {
-            _openMeteoArchiveHttpService = openMeteoArchiveHttpService;
+            _openMeteoArchiveService = openMeteoArchiveService;
             _forecastService = forecastService;
         }
 
-        [HttpPost("temperature")]
-        public async Task<IActionResult> PredictTemperature(
-            [BindRequired] string latitude,
-            [BindRequired]string longitude)
+        [HttpGet("full")]
+        public async Task<IActionResult> FullPredict(
+            [FromQuery]PredictionRequest predictionRequest)
         {
-            var weatherData = await _openMeteoArchiveHttpService.GetWeatherDataAsync(latitude, longitude);
-            return Ok(_forecastService.ForecastTemperature(weatherData));
+            var weatherData = await _openMeteoArchiveService.GetWeatherDataAsync(predictionRequest.Latitude, predictionRequest.Longitude);
+            return Ok(new FullForecastModel
+            {
+                WeatherCode = _forecastService.ForecastWeatherCode(weatherData, predictionRequest.Days).Forecast,
+                MaxTemperature = _forecastService.ForecastMaxTemperature(weatherData, predictionRequest.Days).Forecast,
+                MinTemperature = _forecastService.ForecastMinTemperature(weatherData, predictionRequest.Days).Forecast,
+                PrecipitationSum = _forecastService.ForecastPrecipitationSum(weatherData, predictionRequest.Days).Forecast,
+                RainSum = _forecastService.ForecastRainSum(weatherData, predictionRequest.Days).Forecast,
+                MaxWindSpeed = _forecastService.ForecastMaxWindSpeed(weatherData, predictionRequest.Days).Forecast
+            });
         }
         
-        [HttpPost("humidity")]
-        public async Task<IActionResult> PredictHumidity(
-            [BindRequired] string latitude,
-            [BindRequired]string longitude)
+        [HttpGet("weather-code")]
+        public async Task<IActionResult> PredictWeatherCode(
+            [FromQuery]PredictionRequest predictionRequest)
         {
-            var weatherData = await _openMeteoArchiveHttpService.GetWeatherDataAsync(latitude, longitude);
-            return Ok(_forecastService.ForecastHumidity(weatherData));
+            var weatherData = await _openMeteoArchiveService.GetWeatherDataAsync(predictionRequest.Latitude, predictionRequest.Longitude);
+            return Ok(_forecastService.ForecastWeatherCode(weatherData, predictionRequest.Days));
+        }
+
+        [HttpGet("max-temperature")]
+        public async Task<IActionResult> PredictMaxTemperature(
+            [FromQuery]PredictionRequest predictionRequest)
+        {
+            var weatherData = await _openMeteoArchiveService.GetWeatherDataAsync(predictionRequest.Latitude, predictionRequest.Longitude);
+            return Ok(_forecastService.ForecastMaxTemperature(weatherData, predictionRequest.Days));
         }
         
-        [HttpPost("wind-speed")]
-        public async Task<IActionResult> PredictWindSpeed(
-            [BindRequired] string latitude,
-            [BindRequired]string longitude)
+        [HttpGet("min-temperature")]
+        public async Task<IActionResult> PredictMinTemperature(
+            [FromQuery]PredictionRequest predictionRequest)
         {
-            var weatherData = await _openMeteoArchiveHttpService.GetWeatherDataAsync(latitude, longitude);
-            return Ok(_forecastService.ForecastWindSpeed(weatherData));
+            var weatherData = await _openMeteoArchiveService.GetWeatherDataAsync(predictionRequest.Latitude, predictionRequest.Longitude);
+            return Ok(_forecastService.ForecastMinTemperature(weatherData, predictionRequest.Days));
+        }
+        
+        [HttpGet("precipitation-sum")]
+        public async Task<IActionResult> PredictPrecipitationSum(
+            [FromQuery]PredictionRequest predictionRequest)
+        {
+            var weatherData = await _openMeteoArchiveService.GetWeatherDataAsync(predictionRequest.Latitude, predictionRequest.Longitude);
+            return Ok(_forecastService.ForecastPrecipitationSum(weatherData, predictionRequest.Days));
+        }
+        
+        [HttpGet("rain-sum")]
+        public async Task<IActionResult> PredictRainSum(
+            [FromQuery]PredictionRequest predictionRequest)
+        {
+            var weatherData = await _openMeteoArchiveService.GetWeatherDataAsync(predictionRequest.Latitude, predictionRequest.Longitude);
+            return Ok(_forecastService.ForecastRainSum(weatherData, predictionRequest.Days));
+        }
+        
+        [HttpGet("max-wind-speed")]
+        public async Task<IActionResult> PredictMaxWindSpeed(
+            [FromQuery]PredictionRequest predictionRequest)
+        {
+            var weatherData = await _openMeteoArchiveService.GetWeatherDataAsync(predictionRequest.Latitude, predictionRequest.Longitude);
+            return Ok(_forecastService.ForecastMaxWindSpeed(weatherData, predictionRequest.Days));
         }
     }
 }
