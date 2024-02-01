@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.Extensions.DependencyInjection;
+using WeatherForecast.BLL.Services;
+using WeatherForecast.BLL.Services.Interfaces;
 
 namespace WeatherForecast.BLL.Extensions;
 
@@ -26,7 +28,7 @@ public static class ServiceCollectionExtensions
 
     private static void AddServices(IServiceCollection services)
     {
-        // services.AddScoped<ISomeService, SomeService>();
+        services.AddScoped<IWeatherService, WeatherService>();
     }
 
     private static void AddValidators(IServiceCollection services)
