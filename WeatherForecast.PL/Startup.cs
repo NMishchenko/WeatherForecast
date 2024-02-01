@@ -1,7 +1,9 @@
-﻿using WeatherForecast.BLL.Extensions;
+﻿using Microsoft.Extensions.ML;
+using WeatherForecast.BLL.Extensions;
 using WeatherForecast.DAL.Extensions;
 using WeatherForecast.PL.Extensions;
 using WeatherForecast.PL.Middleware;
+using WeatherForecast.PL.ML;
 
 namespace WeatherForecast.PL;
 
@@ -33,12 +35,15 @@ public class Startup
                     .WithOrigins(ip);
             });       
         });
-                
+       
         services.AddEndpointsApiExplorer();
         
         services.AddDataAccessLayerServices(Configuration);
         services.AddBusinessLogicLayerServices();
         services.AddPresentationLayer(Configuration);
+
+        services.AddHttpClient<IOpenMeteoArchiveHttpService, OpenMeteoArchiveHttpClient>();
+        services.AddScoped<IForecastService, ForecastService>();
     }
 
     public void Configure(WebApplication app, IWebHostEnvironment env)

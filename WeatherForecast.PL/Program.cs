@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.ML;
 using WeatherForecast.DAL;
+using WeatherForecast.PL.ML;
 
 namespace WeatherForecast.PL;
 
