@@ -54,9 +54,9 @@ public class ForecastService: IForecastService
         var forecastEstimator = _mlContext.Forecasting.ForecastBySsa(
             outputColumnName: nameof(ForecastModel.Forecast),
             inputColumnName: inputColumnName,
-            windowSize: 12,
+            windowSize: 365,
             seriesLength: weatherData.Count,
-            trainSize: weatherData.Count,
+            trainSize: weatherData.Count - 365,
             horizon: horizon);
 
         var forecastTransformer = forecastEstimator.Fit(dataView);
