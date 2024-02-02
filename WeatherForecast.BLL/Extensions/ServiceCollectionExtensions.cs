@@ -28,6 +28,7 @@ public static class ServiceCollectionExtensions
 
     private static void AddServices(IServiceCollection services)
     {
+        services.AddScoped<IWeatherService, WeatherService>();
         services.AddScoped<IForecastService, ForecastService>();
         services.AddScoped<IOpenMeteoArchiveService, OpenMeteoArchiveService>();
     }
