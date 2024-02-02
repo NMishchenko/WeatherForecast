@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {WeatherDataModel, WeatherReportModel} from "../../models/models";
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ import {WeatherDataModel, WeatherReportModel} from "../../models/models";
 export class ApiService {
 
   constructor(private httpClient: HttpClient) { }
-  API_URL = 'https://localhost:7071/api';
+  API_URL = environment.apiUrl;
 
   getCurrentWeather(latitude: string, longitude: string): Observable<WeatherReportModel> {
     return this.httpClient.get<WeatherReportModel>(

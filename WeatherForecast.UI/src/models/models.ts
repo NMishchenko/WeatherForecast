@@ -1,13 +1,10 @@
 ﻿export interface WeatherDataModel {
-  latitude: number;
-  longitude: number;
-  time: string;
-  weatherCode: number;
-  maxTemperature: number;
-  minTemperature: number;
-  precipitationSum: number;
-  rainSum: number;
-  maxWindSpeed: number;
+  weatherCode: number[];
+  maxTemperature: number[];
+  minTemperature: number[];
+  precipitationSum: number[];
+  rainSum: number[];
+  maxWindSpeed: number[];
 }
 
 export interface WindInfoModel {

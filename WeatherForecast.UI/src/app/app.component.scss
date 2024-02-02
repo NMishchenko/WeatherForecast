@@ -20,6 +20,11 @@ p {
     font-weight: 300;
 }
 
+.point-location {
+    text-align: center;
+    font-size: 24px;
+}
+
 .content {
     width: 1380px;
     margin: auto;
@@ -38,6 +43,7 @@ header {
   background-clip: text;
   -webkit-text-fill-color: transparent;
   font-size: 76px;
+  font-weight: 600;
   width: min-content;
   height: min-content;
   white-space: nowrap;
@@ -54,10 +60,6 @@ header {
   width: 992px;
   height: 691px;
   border-radius: 30px;
-  background-image: url('/assets/map.png');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
   box-shadow: 0px 4px 10px 3px #00000040;
 }
 
@@ -129,7 +131,7 @@ header {
     }
 
     .parameters {
-        width: 100%;
+        width: 130%;
 
         display: flex;
         align-items: center;

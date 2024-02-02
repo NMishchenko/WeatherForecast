@@ -3,86 +3,37 @@
 </header>
 <div class="content">
   <div class="map_and_weather">
-    <div class="map">
-      
-    </div>
+    <div id="map" class="map"></div>
     <div class="weather">
       <div class="weather-main-parameter">
-        <h1>01.02.2024</h1>
+        <h1>{{currentDate}}</h1>
         <img src="/assets/sunny_cloudy.png" width="128px">
-        <h1>Sunny</h1>
+        <h1>{{getWeather(reportModel.weather[0].description)}}</h1>
       </div>
+      <h1 class="point-location">{{location}}</h1>
       <div class="weather-additional-parameters">
         <div class="weather-parameter">
           <img src="/assets/temp.png" width="50px">
-          <p>-1°C</p>
+          <p>{{getRound(reportModel.main.temperature, 0)}}°C</p>
         </div>
         <div class="weather-parameter">
           <img src="/assets/water.png" width="30px">
-          <p>20%</p>
+          <p>{{reportModel.main.humidity}}%</p>
         </div>
         <div class="weather-parameter">
           <img src="/assets/wind.png" width="50px">
-          <p>18 km/h</p>
+          <p>{{getRound(reportModel.wind.speed, 2)}} km/h</p>
         </div>
       </div>
     </div>
   </div>
   <div class="forecast">
-    <div class="weather-predict">
-      <h1>01.02.2024</h1>
+    <div *ngFor="let i of getRange(7)" class="weather-predict">
+      <h1>{{getNextDate(i + 1)}}</h1>
       <img src="/assets/sunny_cloudy.png" width="100px">
       <div class="parameters">
-        <p>-1°C</p>
-        <p>18 km/h</p>
-      </div>
-    </div>
-    <div class="weather-predict">
-      <h1>01.02.2024</h1>
-      <img src="/assets/sunny_cloudy.png" width="100px">
-      <div class="parameters">
-        <p>-1°C</p>
-        <p>18 km/h</p>
-      </div>
-    </div>
-    <div class="weather-predict">
-      <h1>01.02.2024</h1>
-      <img src="/assets/sunny_cloudy.png" width="100px">
-      <div class="parameters">
-        <p>-1°C</p>
-        <p>18 km/h</p>
-      </div>
-    </div>
-    <div class="weather-predict">
-      <h1>01.02.2024</h1>
-      <img src="/assets/sunny_cloudy.png" width="100px">
-      <div class="parameters">
-        <p>-1°C</p>
-        <p>18 km/h</p>
-      </div>
-    </div>
-    <div class="weather-predict">
-      <h1>01.02.2024</h1>
-      <img src="/assets/sunny_cloudy.png" width="100px">
-      <div class="parameters">
-        <p>-1°C</p>
-        <p>18 km/h</p>
-      </div>
-    </div>
-    <div class="weather-predict">
-      <h1>01.02.2024</h1>
-      <img src="/assets/sunny_cloudy.png" width="100px">
-      <div class="parameters">
-        <p>-1°C</p>
-        <p>18 km/h</p>
-      </div>
-    </div>
-    <div class="weather-predict">
-      <h1>01.02.2024</h1>
-      <img src="/assets/sunny_cloudy.png" width="100px">
-      <div class="parameters">
-        <p>-1°C</p>
-        <p>18 km/h</p>
+        <p><b>{{getMax(predictionModel.minTemperature[i], predictionModel.maxTemperature[i])}}°/{{getMin(predictionModel.minTemperature[i], predictionModel.maxTemperature[i])}}°</b></p>
+        <p>{{getRoundAbs(predictionModel.maxWindSpeed[i], 2)}} km/h</p>
       </div>
     </div>
   </div>

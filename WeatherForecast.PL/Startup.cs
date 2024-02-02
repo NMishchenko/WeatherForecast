@@ -32,7 +32,7 @@ public class Startup
                 policy
                     .AllowAnyHeader()
                     .AllowAnyMethod()
-                    .WithOrigins(ip);
+                    .WithOrigins("*");
             });       
         });
        
@@ -47,11 +47,8 @@ public class Startup
     {
         app.UseCors(FrontOriginPolicyName);
         
-        if (env.IsDevelopment())
-        {
-            app.UseSwagger();
-            app.UseSwaggerUI();
-        }
+        app.UseSwagger();
+        app.UseSwaggerUI();
 
         app.UseMiddleware<ExceptionHandlerMiddleware>();
 
