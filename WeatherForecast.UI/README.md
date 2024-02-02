@@ -1,27 +1,28 @@
-# WeatherForecastUI
+# Weather Forecast by Modern Crusaders
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.1.2.
+![Main page](https://i.ibb.co/WsBcWrk/Screenshot-2024-02-02-235817.png "Main page")
 
-## Development server
+Weather Forecast is an application that allows users to watch the current weather conditions and the forecast with the help of the interactive weather map. his project utilizes the Microsoft.ML library to perform time series forecasting for weather data. It predicts future max/min temperature, wind speed, precipitation sum, rain sum based on historical daily weather data via open APIs. The forecasting algorithm employed is Singular Spectrum Analysis (SSA).
+It uses Microsoft ASP.NET Core platform for API and Angular framework for UI. The Docker containerization facilitates the deployment of the server and Web UI seamlessly, requiring minimal prerequisites.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Run localy
+1. Clone the repository:
+```cmd
+git clone https://github.com/NMishchenko/WeatherForecast.git
+```
+2. Open the folder with docker-compose.yaml file:
+```cmd
+cd *insert path to docker-compose.yaml here*
+```
+3. Start the docker containers:
+```cmd
+docker-compose up
+```
+4. Open http://localhost:8080 in a browser to access the UI.
 
-## Code scaffolding
+`Open http://localhost:7070/swagger to access the application API`
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+### Open Source APIs use
+1. [Open Weather Historical Weather API](https://open-meteo.com/en/docs/historical-weather-api/ "Open Weather Historical Weather API")
+2. [OpenWeatherMap Current Weather API](https://openweathermap.org/current "OpenWeatherMap Current Weather API")
+3. [MapBox API](https://docs.mapbox.com/api/overview/ "MapBox API")
