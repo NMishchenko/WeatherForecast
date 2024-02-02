@@ -9,9 +9,9 @@ public class ForecastService: IForecastService
 {
     private readonly MLContext _mlContext;
 
-    public ForecastService()
+    public ForecastService(MLContext mlContext)
     {
-        _mlContext = new MLContext();
+        _mlContext = mlContext;
     }
     
     public ForecastModel ForecastWeatherCode(IList<WeatherDataModel> weatherData, int horizon)

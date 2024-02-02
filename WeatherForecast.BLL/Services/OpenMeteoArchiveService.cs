@@ -16,7 +16,7 @@ public class OpenMeteoArchiveService: IOpenMeteoArchiveService
     {
         openMeteoQueryParams ??= new OpenMeteoQueryParamsModel
         {
-            StartDate = DateTime.UtcNow.AddYears(-1).ToString("yyyy-MM-dd"),
+            StartDate = DateTime.UtcNow.AddYears(-3).ToString("yyyy-MM-dd"),
             EndDate = DateTime.UtcNow.AddDays(-1).ToString("yyyy-MM-dd")
         };
         var response = await ApiUrl

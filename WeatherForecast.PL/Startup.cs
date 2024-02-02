@@ -47,15 +47,13 @@ public class Startup
     {
         app.UseCors(FrontOriginPolicyName);
         
-        if (env.IsDevelopment())
+        //if (env.IsDevelopment())
         {
             app.UseSwagger();
             app.UseSwaggerUI();
         }
 
         app.UseMiddleware<ExceptionHandlerMiddleware>();
-
-        app.UseHttpsRedirection();
 
         app.MapControllers();
     }
