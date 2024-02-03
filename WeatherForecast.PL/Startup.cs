@@ -1,4 +1,6 @@
 ﻿using WeatherForecast.BLL.Extensions;
+using WeatherForecast.BLL.Services;
+using WeatherForecast.BLL.Services.Interfaces;
 using WeatherForecast.DAL.Extensions;
 using WeatherForecast.PL.Extensions;
 using WeatherForecast.PL.Middleware;
@@ -30,10 +32,10 @@ public class Startup
                 policy
                     .AllowAnyHeader()
                     .AllowAnyMethod()
-                    .WithOrigins(ip);
+                    .WithOrigins("*");
             });       
         });
-                
+       
         services.AddEndpointsApiExplorer();
         
         services.AddDataAccessLayerServices(Configuration);
@@ -45,15 +47,10 @@ public class Startup
     {
         app.UseCors(FrontOriginPolicyName);
         
-        if (env.IsDevelopment())
-        {
-            app.UseSwagger();
-            app.UseSwaggerUI();
-        }
+        app.UseSwagger();
+        app.UseSwaggerUI();
 
         app.UseMiddleware<ExceptionHandlerMiddleware>();
-
-        app.UseHttpsRedirection();
 
         app.MapControllers();
     }

@@ -1,5 +1,5 @@
-using Microsoft.EntityFrameworkCore;
-using WeatherForecast.DAL;
+using Flurl.Http;
+using Flurl.Http.Newtonsoft;
 
 namespace WeatherForecast.PL;
 
@@ -11,6 +11,11 @@ public class Program
 
         var startup = new Startup(builder.Configuration);
         startup.ConfigureServices(builder.Services);
+        FlurlHttp.Clients.WithDefaults(b =>
+            b.WithSettings(settings =>
+            {
+                settings.JsonSerializer = new NewtonsoftJsonSerializer();
+            }));
 
         var app = builder.Build();
         startup.Configure(app, builder.Environment);
